@@ -4,12 +4,12 @@ This project contains source code and supporting files for a serverless applicat
 
 - hello_world - Code for the application's Lambda function.
 - events - Invocation events that you can use to invoke the function.
-- tests - Unit tests for the application code. 
+- tests - Unit tests for the application code.
 - template.yaml - A template that defines the application's AWS resources.
 
 The application uses several AWS resources, including Lambda functions and an API Gateway API. These resources are defined in the `template.yaml` file in this project. You can update the template to add AWS resources through the same deployment process that updates your application code.
 
-If you prefer to use an integrated development environment (IDE) to build and test your application, you can use the AWS Toolkit.  
+If you prefer to use an integrated development environment (IDE) to build and test your application, you can use the AWS Toolkit.
 The AWS Toolkit is an open source plug-in for popular IDEs that uses the SAM CLI to build and deploy serverless applications on AWS. The AWS Toolkit also adds a simplified step-through debugging experience for Lambda function code. See the following links to get started.
 
 * [PyCharm](https://docs.aws.amazon.com/toolkit-for-jetbrains/latest/userguide/welcome.html)
@@ -42,7 +42,7 @@ sam-schedule-app$ sam package \
     --s3-bucket BUCKET_NAME
 ```
 
-The SAM CLI creates deployment packages, uploads them to the S3 bucket, and creates a new version of the template that refers to the artifacts in the bucket. 
+The SAM CLI creates deployment packages, uploads them to the S3 bucket, and creates a new version of the template that refers to the artifacts in the bucket.
 
 To deploy the application, use the `sam deploy` command.
 
@@ -58,9 +58,9 @@ After deployment is complete you can run the following command to retrieve the A
 ```bash
 sam-schedule-app$ aws cloudformation describe-stacks \
     --stack-name sam-schedule-app \
-    --query 'Stacks[].Outputs[?OutputKey==`HelloWorldApi`]' \
+    --query 'Stacks[].Outputs[?OutputKey==`Schedule1Api`]' \
     --output table
-``` 
+```
 
 ## Use the SAM CLI to build and test locally
 
@@ -77,7 +77,7 @@ Test a single function by invoking it directly with a test event. An event is a 
 Run functions locally and invoke them with the `sam local invoke` command.
 
 ```bash
-sam-schedule-app$ sam local invoke HelloWorldFunction --event events/event.json
+sam-schedule-app$ sam local invoke Schedule1Function --event events/event.json
 ```
 
 The SAM CLI can also emulate your application's API. Use the `sam local start-api` to run the API locally on port 3000.
@@ -91,7 +91,7 @@ The SAM CLI reads the application template to determine the API's routes and the
 
 ```yaml
       Events:
-        HelloWorld:
+        Schedule1:
           Type: Api
           Properties:
             Path: /hello
@@ -108,7 +108,7 @@ To simplify troubleshooting, SAM CLI has a command called `sam logs`. `sam logs`
 `NOTE`: This command works for all AWS Lambda functions; not just the ones you deploy using SAM.
 
 ```bash
-sam-schedule-app$ sam logs -n HelloWorldFunction --stack-name sam-schedule-app --tail
+sam-schedule-app$ sam logs -n Schedule1Function --stack-name sam-schedule-app --tail
 ```
 
 You can find more information and examples about filtering Lambda function logs in the [SAM CLI Documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-logging.html).

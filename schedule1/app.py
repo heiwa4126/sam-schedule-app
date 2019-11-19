@@ -33,10 +33,15 @@ def lambda_handler(event, context):
 
     #     raise e
 
+    # log output
+    # https://docs.aws.amazon.com/ja_jp/lambda/latest/dg/python-logging.html
+    print(event)
+
     return {
         "statusCode": 200,
         "body": json.dumps({
             "message": "hello world",
+            "event": event
             # "location": ip.text.replace("\n", "")
         }),
     }
